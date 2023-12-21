@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>Clientes</h1>
+  <p>Lista de clientes.</p>
+
+  <ul th:each="cliente : ${cls}">
+    <li>
+      <a th:href="'/clientes/'+${cliente.id}" th:text="${cliente.nome}"></a>
+    </li>
+  </ul>
+
+  <table>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Filiação</th>
+      <th>Preferência</th>
+      <th>Excluir</th>
+    </tr>
+    <tbody th:each="cliente : ${cls}">
+      <tr>
+        <td>
+          <a th:href="'/clientes/'+${cliente.id}" th:text="${cliente.nome}"></a>
+        </td>
+        <td th:text="${cliente.email}"></td>
+        <td th:text="${cliente.filiacao}"></td>
+        <td th:text="${cliente.preferencia}"></td>
+        <td>
+          <form action="/clientes/delete" method="post">
+            <input type="hidden" name="id" th:value="${cliente.id}">
+            <button>Excluir</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="/js/script.js"></script>
+</body>
+
+</html>
