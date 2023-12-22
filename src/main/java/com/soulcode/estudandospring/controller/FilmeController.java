@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.soulcode.estudandospring.model.Cliente;
-import com.soulcode.estudandospring.repository.ClienteRepository;
+import com.soulcode.estudandospring.model.Filme;
+import com.soulcode.estudandospring.repository.FilmeRepository;
 
 @Controller
-public class ClienteController {
+public class FilmeController {
 
   @Autowired
-  private ClienteRepository clienteRepository;
+  private FilmeRepository filmeRepository;
   
-  @GetMapping(value = "/clientes")
-  public ModelAndView clientes() {
+  @GetMapping(value = "/filmes")
+  public ModelAndView filmes() {
     try {
-      List<Cliente> clientes = clienteRepository.findAll();
-      ModelAndView mv = new ModelAndView("clientes");
-      mv.addObject("cls", clientes);
+      List<Filme> filmes = filmeRepository.findAll();
+      ModelAndView mv = new ModelAndView("filmes");
+      mv.addObject("fils", filmes);
       return mv;
     } catch(Exception ex) {
       ModelAndView erro = new ModelAndView("erro");
@@ -34,19 +34,19 @@ public class ClienteController {
     }
   }
 
-  @GetMapping(value = "/clientes/{id}")
+  @GetMapping(value = "/filmes/{id}")
   public ModelAndView clientById(@PathVariable Integer id) {
     try {
-      Optional<Cliente> clienteOpt = clienteRepository.findById(id);
-      if(clienteOpt.isPresent()) {
-        Cliente cliente = clienteOpt.get();
-        ModelAndView mv = new ModelAndView("cliente");
-        mv.addObject("cl", cliente);
+      Optional<Filme> filmeOpt = filmeRepository.findById(id);
+      if(filmeOpt.isPresent()) {
+        Filme filme = filmeOpt.get();
+        ModelAndView mv = new ModelAndView("filme");
+        mv.addObject("fil", filme);
         return mv;
       }
       else {
         ModelAndView erro = new ModelAndView("erro");
-        erro.addObject("msg", "Cliente não encontrado.");
+        erro.addObject("msg", "Filme não encontrado.");
         return erro;
       }
     } catch(Exception ex) {
@@ -56,39 +56,39 @@ public class ClienteController {
     }
   }
 
-  @PostMapping(value = "/clientes/delete")
+  @PostMapping(value = "/filmes/delete")
   public String delete(@RequestParam Integer id) {
     try {
-      clienteRepository.deleteById(id);
+      filmeRepository.deleteById(id);
     } catch(Exception ex) {
       return "erro";
     }
-    return "redirect:/clientes";
+    return "redirect:/filmes";
   }
 
-  @PostMapping(value = "/clientes")
-  public String create(Cliente cliente) {
+  @PostMapping(value = "/filmes")
+  public String create(Filme filme) {
     try {
-      clienteRepository.save(cliente);
+      filmeRepository.save(filme);
     } catch(Exception ex) {
       return "erro";
     }
-    return "redirect:/clientes";
+    return "redirect:/filmes";
   }
 
-  @GetMapping(value = "/clientes/{id}/edit")
+  @GetMapping(value = "/filmes/{id}/edit")
   public ModelAndView update(@PathVariable Integer id){
     try {
-      Optional<Cliente> clientOpt = clienteRepository.findById(id);
+      Optional<Filme> clientOpt = filmeRepository.findById(id);
       if(clientOpt.isPresent()) {
-        ModelAndView mv = new ModelAndView("cliente-edit");
-        Cliente cliente = clientOpt.get();
-        mv.addObject("cl", cliente);
+        ModelAndView mv = new ModelAndView("filme-edit");
+        Filme filme = clientOpt.get();
+        mv.addObject("fil", filme);
         return mv;
       }
       else {
         ModelAndView erro = new ModelAndView("erro");
-        erro.addObject("msg", "Cliente não encontrado.");
+        erro.addObject("msg", "Filme não encontrado.");
         return erro;
       }
     } catch(Exception ex) {
@@ -98,16 +98,16 @@ public class ClienteController {
     }
   }
 
-  @PostMapping(value = "/clientes/edit")
-  public String edit(Cliente cliente) {
+  @PostMapping(value = "/filmes/edit")
+  public String edit(Filme filme) {
     try {
-      Optional<Cliente> clientOpt = clienteRepository.findById(cliente.getId());
+      Optional<Filme> clientOpt = filmeRepository.findById(filme.getId());
       if(clientOpt.isPresent()) {
-        clienteRepository.save(cliente);
+        filmeRepository.save(filme);
       }
     } catch(Exception ex) {
       return "erro";
     }
-    return "redirect:/clientes";
+    return "redirect:/filmes";
   }
 }

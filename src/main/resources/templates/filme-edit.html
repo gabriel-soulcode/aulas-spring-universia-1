@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>Editar Filme</h1>
+
+  <form action="/filmes/edit" method="post">
+    <input type="hidden" name="id" th:value="${fil.id}">
+
+    <label for="titulo">Titulo</label>
+    <input type="text" name="titulo" id="titulo" th:value="${fil.titulo}" required>
+
+    <label for="descricao">Descrição</label>
+    <input type="text" name="descricao" id="descricao" th:value="${fil.descricao}" required>
+
+    <label for="estudio">Estudio</label>
+    <input type="text" name="estudio" id="estudio" th:value="${fil.estudio}" required>
+
+    <label for="classificacao">Classificação</label>
+    <input type="text" name="classificacao" id="classificacao" th:value="${fil.classificacao}" required>
+
+    <button>Enviar</button>
+  </form>
+
+  <a href="/filmes">Voltar</a>
+</body>
+
+</html>

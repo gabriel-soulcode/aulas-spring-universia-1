@@ -1,10 +1,13 @@
 package com.soulcode.estudandospring.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.soulcode.estudandospring.model.Filme;
@@ -23,11 +26,28 @@ public class SessaoController {
 
   @GetMapping(value = "/sessoes")
   public ModelAndView sessoes() {
-    List<Sessao> sessoes = sessaoRepository.findAll();
-    List<Filme> filmes = filmeRepository.findAll();
-    ModelAndView mv = new ModelAndView("sessoes");
-    mv.addObject("ses", sessoes);
-    mv.addObject("fils", filmes);
-    return mv;
+    try {
+      List<Sessao> sessoes = sessaoRepository.findAll();
+      List<Filme> filmes = filmeRepository.findAll();
+      ModelAndView mv = new ModelAndView("sessoes");
+      mv.addObject("ses", sessoes);
+      mv.addObject("fils", filmes);
+      return mv;
+    } catch(Exception ex) {
+      ModelAndView erro = new ModelAndView("erro");
+      erro.addObject("msg", "Erro interno no servidor.");
+      return erro;
+    }
+  }
+
+  @PostMapping(value = "/sessoes")
+  public String create(@RequestParam Integer filmeId, Sessao sessao) {
+    Optional<Filme> filmeOpt = filmeRepository.findById(filmeId);
+    if(filmeOpt.isPresent()) {
+      Filme filme = filmeOpt.get();
+      sessao.setFilme(filme);
+      sessaoRepository.save(sessao);
+    }
+    return "redirect:/sessoes";
   }
 }

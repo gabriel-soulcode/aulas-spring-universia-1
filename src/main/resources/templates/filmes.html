@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filmes</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>Filmes</h1>
+  <p>Lista de filmes.</p>
+
+  <table>
+    <tr>
+      <th>Titulo</th>
+      <th>Descrição</th>
+      <th>Estudio</th>
+      <th>Classificação</th>
+      <th>Excluir</th>
+      <th>Editar</th>
+    </tr>
+    <tbody>
+      <tr th:each="filme : ${fils}">
+        <td>
+          <a th:href="'/filmes/'+${filme.id}" th:text="${filme.titulo}"></a>
+        </td>
+        <td th:text="${filme.titulo}"></td>
+        <td th:text="${filme.descricao}"></td>
+        <td th:text="${filme.classificacao}"></td>
+        <td>
+          <form action="/filmes/delete" method="post">
+            <input type="hidden" name="id" th:value="${filme.id}">
+            <button>Excluir</button>
+          </form>
+        </td>
+        <td>
+          <a th:href="'/filmes/'+${filme.id}+'/edit'">
+            <button>Editar</button>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Novo Filme</h2>
+  <form action="/filmes" method="post">
+    <label for="titulo">Titulo</label>
+    <input type="text" name="titulo" id="titulo" required>
+
+    <label for="descricao">Descrição</label>
+    <input type="text" name="descricao" id="descricao" required>
+
+    <label for="estudio">Estudio</label>
+    <input type="text" name="estudio" id="estudio" required>
+
+    <label for="classificacao">Classificação</label>
+    <input type="text" name="classificacao" id="classificacao" required>
+
+    <button>Enviar</button>
+  </form>
+
+  <script src="/js/script.js"></script>
+</body>
+
+</html>
