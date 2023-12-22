@@ -12,11 +12,11 @@
   <h1>Clientes</h1>
   <p>Lista de clientes.</p>
 
-  <ul th:each="cliente : ${cls}">
+  <!-- <ul th:each="cliente : ${cls}">
     <li>
       <a th:href="'/clientes/'+${cliente.id}" th:text="${cliente.nome}"></a>
     </li>
-  </ul>
+  </ul> -->
 
   <table>
     <tr>
@@ -25,9 +25,10 @@
       <th>Filiação</th>
       <th>Preferência</th>
       <th>Excluir</th>
+      <th>Editar</th>
     </tr>
-    <tbody th:each="cliente : ${cls}">
-      <tr>
+    <tbody>
+      <tr th:each="cliente : ${cls}">
         <td>
           <a th:href="'/clientes/'+${cliente.id}" th:text="${cliente.nome}"></a>
         </td>
@@ -40,9 +41,31 @@
             <button>Excluir</button>
           </form>
         </td>
+        <td>
+          <a th:href="'/clientes/'+${cliente.id}+'/edit'">
+            <button>Editar</button>
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <h2>Novo Cliente</h2>
+  <form action="/clientes" method="post">
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+
+    <label for="preferencia">Preferência</label>
+    <input type="text" name="preferencia" id="preferencia" required>
+
+    <label for="filiacao">Filiação</label>
+    <input type="date" name="filiacao" id="filiacao" required>
+
+    <button>Enviar</button>
+  </form>
 
   <script src="/js/script.js"></script>
 </body>

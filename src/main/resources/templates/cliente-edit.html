@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>Editar Cliente</h1>
+
+  <form action="/clientes/edit" method="post">
+    <input type="hidden" name="id" th:value="${cl.id}">
+
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome" th:value="${cl.nome}" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" th:value="${cl.email}" required>
+
+    <label for="preferencia">Preferência</label>
+    <input type="text" name="preferencia" id="preferencia" th:value="${cl.preferencia}" required>
+
+    <label for="filiacao">Filiação</label>
+    <input type="date" name="filiacao" id="filiacao" th:value="${cl.filiacao}" required>
+
+    <button>Enviar</button>
+  </form>
+
+  <a href="/clientes">Voltar</a>
+</body>
+
+</html>

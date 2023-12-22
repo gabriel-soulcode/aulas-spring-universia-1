@@ -48,4 +48,34 @@ public class ClienteController {
     clienteRepository.deleteById(id);
     return "redirect:/clientes";
   }
+
+  @PostMapping(value = "/clientes")
+  public String create(Cliente cliente) {
+    clienteRepository.save(cliente);
+    return "redirect:/clientes";
+  }
+
+  @GetMapping(value = "/clientes/{id}/edit")
+  public ModelAndView update(@PathVariable Integer id){
+    Optional<Cliente> clientOpt = clienteRepository.findById(id);
+    if(clientOpt.isPresent()) {
+      ModelAndView mv = new ModelAndView("cliente-edit");
+      Cliente cliente = clientOpt.get();
+      mv.addObject("cl", cliente);
+      return mv;
+    }
+    else {
+      ModelAndView erro = new ModelAndView("erro");
+      return erro;
+    }
+  }
+
+  @PostMapping(value = "/clientes/edit")
+  public String edit(Cliente cliente) {
+    Optional<Cliente> clientOpt = clienteRepository.findById(cliente.getId());
+    if(clientOpt.isPresent()) {
+      clienteRepository.save(cliente);
+    }
+    return "redirect:/clientes";
+  }
 }
