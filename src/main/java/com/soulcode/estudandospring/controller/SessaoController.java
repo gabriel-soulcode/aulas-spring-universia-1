@@ -42,12 +42,26 @@ public class SessaoController {
 
   @PostMapping(value = "/sessoes")
   public String create(@RequestParam Integer filmeId, Sessao sessao) {
-    Optional<Filme> filmeOpt = filmeRepository.findById(filmeId);
-    if(filmeOpt.isPresent()) {
-      Filme filme = filmeOpt.get();
-      sessao.setFilme(filme);
-      sessaoRepository.save(sessao);
+    try {
+      Optional<Filme> filmeOpt = filmeRepository.findById(filmeId);
+      if(filmeOpt.isPresent()) {
+        Filme filme = filmeOpt.get();
+        sessao.setFilme(filme);
+        sessaoRepository.save(sessao);
+      }
+      return "redirect:/sessoes";
+    } catch(Exception ex) {
+      return "erro";
     }
-    return "redirect:/sessoes";
+  }
+
+  @PostMapping(value = "/sessoes/delete")
+  public String delete(@RequestParam Integer id) {
+    try {
+      sessaoRepository.deleteById(id);
+      return "redirect:/sessoes";
+    } catch(Exception ex) {
+      return "erro";
+    }
   }
 }

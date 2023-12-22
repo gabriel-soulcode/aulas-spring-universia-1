@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Sessões</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -19,6 +19,7 @@
       <th>Inicio</th>
       <th>Termino</th>
       <th>Preço</th>
+      <th>Excluir</th>
     </tr>
     <tr th:each="sessao : ${ses}">
       <td th:text="${sessao.filme.titulo}"></td>
@@ -26,6 +27,12 @@
       <td th:text="${sessao.inicio}"></td>
       <td th:text="${sessao.termino}"></td>
       <td th:text="${sessao.precoIngresso}"></td>
+      <td>
+        <form action="/sessoes/delete" method="post">
+          <input type="hidden" name="id" th:value="${sessao.id}">
+          <button>Excluir</button>
+        </form>
+      </td>
     </tr>
   </table>
 

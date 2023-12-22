@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservas</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>Lista de Reservas</h1>
+  <a href="/">Home</a>
+
+  <table>
+    <tr>
+      <th>Sessão</th>
+      <th>Cliente</th>
+      <th>Quantidade</th>
+      <th>Situação</th>
+      <th>Excluir</th>
+    </tr>
+    <tr th:each="reserva : ${resvs}">
+      <td th:text="${reserva.sessao.filme.titulo}"></td>
+      <td th:text="${reserva.cliente.nome}"></td>
+      <td th:text="${reserva.quantidade}"></td>
+      <td th:text="${reserva.situacao}"></td>
+      <td>
+        <form action="/reservas/delete" method="post">
+          <input type="hidden" name="id" th:value="${reserva.id}">
+          <button>Excluir</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+
+  <h2>Nova Reserva</h2>
+  <form action="/reservas" method="post">
+    <label for="sessao">Sessão</label>
+    <select name="sessaoId" id="sessao">
+      <option selected disabled value="">Selecione uma sessão</option>
+      <option th:each="sessao : ${ses}" th:value="${sessao.id}">
+        <span th:text="${sessao.filme.titulo}"></span> - <span th:text="${sessao.data}"></span> - <span th:text="${sessao.inicio}"></span>
+      </option>
+    </select>
+
+    <label for="cliente">Cliente</label>
+    <select name="clienteId" id="cliente">
+      <option selected disabled value="">Selecione um cliente</option>
+      <option th:each="cliente : ${cls}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+    </select>
+
+    <label for="quantidade">Quantidade</label>
+    <input type="number" name="quantidade" id="quantidade" required>
+
+    <label for="situacao">Situação</label>
+    <input type="text" name="situacao" id="situacao" value="Completo" required>
+
+    <button>Enviar</button>
+  </form>
+</body>
+
+</html>
