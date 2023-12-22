@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>Lista de Sessões</h1>
+
+  <table>
+    <tr>
+      <th>Filme</th>
+      <th>Data</th>
+      <th>Inicio</th>
+      <th>Termino</th>
+      <th>Preço</th>
+    </tr>
+    <tr th:each="sessao : ${ses}">
+      <td th:text="${sessao.filme.titulo}"></td>
+      <td th:text="${sessao.data}"></td>
+      <td th:text="${sessao.inicio}"></td>
+      <td th:text="${sessao.termino}"></td>
+      <td th:text="${sessao.precoIngresso}"></td>
+    </tr>
+  </table>
+
+  <h2>Nova Sessão</h2>
+  <form action="/sessoes" method="post">
+    <label for="filme">Filme</label>
+    <select name="filmeId" id="filme">
+      <option selected disabled value="">Selecione um filme</option>
+      <option th:each="filme : ${fils}" th:value="${filme.id}" th:text="${filme.titulo}"></option>
+    </select>
+
+    <label for="data">Data</label>
+    <input type="date" name="data" id="data" required>
+
+    <label for="inicio">Inicio</label>
+    <input type="time" name="inicio" id="inicio" required>
+
+    <label for="termino">Termino</label>
+    <input type="time" name="termino" id="termino" required>
+
+    <label for="preco">Preço</label>
+    <input type="number" name="preco" id="preco" required>
+
+    <button>Enviar</button>
+  </form>
+</body>
+
+</html>

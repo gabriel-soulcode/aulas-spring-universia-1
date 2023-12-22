@@ -39,6 +39,7 @@ public class ClienteController {
     }
     else {
       ModelAndView erro = new ModelAndView("erro");
+      erro.addObject("msg", "Cliente não encontrado.");
       return erro;
     }
   }
@@ -66,6 +67,7 @@ public class ClienteController {
     }
     else {
       ModelAndView erro = new ModelAndView("erro");
+      erro.addObject("msg", "Cliente não encontrado.");
       return erro;
     }
   }
